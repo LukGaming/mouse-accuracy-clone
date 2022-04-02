@@ -17,16 +17,16 @@ const heigth = window.innerHeight
 export default {
     data() {
         return {
-            // pontuacao: 0,
+            pontuacao: 0,
             configKonva: {
                 width: width,
                 height: heigth,
                 fill: 'red',
             },
             pontuacaoConfig: {
-                x: width - 200,
+                x: width - 300,
                 y: 15,
-                text: 0,
+                text: null,
                 fontSize: 30,
                 fontFamily: 'Calibri',
                 fill: 'green',
@@ -44,6 +44,7 @@ export default {
         };
     },
     created() {
+        this.pontuacaoConfig.text = `Pontuacao: ${this.pontuacao}`
         var i = 0;
         var speed = 500;
         setInterval(() => {
@@ -70,7 +71,8 @@ export default {
     methods: {
         clickingCircle(index) {
             this.stopAnimation(index)
-            this.pontuacaoConfig.text++;
+            // this.this.pontuacao++
+            this.pontuacaoConfig.text = `Pontuacao: ${this.pontuacao++}`;
         },
         setRandomRespawn(parameter) {
             return Math.random() * parameter;
@@ -93,7 +95,7 @@ export default {
                 this.circles[index].configCircle.lessThanMaximumRadius = false
                 this.circles[index].animation = new Konva.Animation(() => {
                     // setInterval(() => {
-                    var radiusSpeed = 0.25
+                    var radiusSpeed = 0.1
                     if (this.circles[index].configCircle.lessThanMaximumRadius == false) {
                         this.circles[index].configCircle.radius = this.circles[index].configCircle.radius + radiusSpeed
                         if (this.circles[index].configCircle.radius >= 20) {
