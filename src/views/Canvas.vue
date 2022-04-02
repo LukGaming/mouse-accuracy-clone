@@ -47,7 +47,7 @@ export default {
         var i = 0;
         var speed = 500;
         setInterval(() => {
-            // if (i < 5) {
+            if (i < 5) {
                 this.circles.push({
                     id: i,
                     configCircle: {
@@ -56,15 +56,13 @@ export default {
                         radius: 1,
                         fill: "red",
                         // stroke: "black",
-                        strokeWidth: 4
+                        strokeWidth: 4,
+                        visible: false
                     }
                 })
                 this.growCircle(i)
                 i++;
-                console.log(this.circles)
-
-
-            // }
+            }
 
         }, speed);
 
@@ -78,20 +76,24 @@ export default {
             return Math.random() * parameter;
         },
         stopAnimation(index) {
-            this.circles[index].animation.stop()
-            this.circles[index].layer.visible(false)
+            // this.circles[index].animation.stop()
+            this.circles[index].configCircle.visible = false
+            setTimeout(() => {
+                this.circles[index].configCircle.lessThanMaximumRadius = false
+                this.circles[index].configCircle.visible = true
+            }, 1000);
+            // this.circles[index].layer.visible(false)
             // this.circles[index].layer.setX(this.setRandomRespawn(width))
             // this.circles[index].layer.setY(this.setRandomRespawn(heigth))
         },
         growCircle(index) {
             setTimeout(() => {
-                if (this.circles[index]) {
                     this.circles[index].layer = this.$refs.circles[index].getNode()
+                    this.circles[index].configCircle.visible = true
                     this.circles[index].configCircle.lessThanMaximumRadius = false
                     this.circles[index].animation = new Konva.Animation(() => {
                         // setInterval(() => {
                         var radiusSpeed = 0.25
-                        if (this.circles[index]) {
                             if (this.circles[index].configCircle.lessThanMaximumRadius == false) {
                                 this.circles[index].configCircle.radius = this.circles[index].configCircle.radius + radiusSpeed
                                 if (this.circles[index].configCircle.radius >= 20) {
@@ -109,14 +111,14 @@ export default {
                                 // this.circles[index].configCircle.lessThanMaximumRadius = true
                                 // this.circles[index].configCircle.radius = 2
                             }
-                        }
+                        
 
                         // }, 1000);
 
                     }, this.circles[index].layer)
                     this.circles[index].animation.start()
                     return Konva
-                }
+                
             }, 1000);
         }
     }
