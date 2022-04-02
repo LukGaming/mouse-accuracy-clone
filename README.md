@@ -1,4 +1,4 @@
-# vue-accuracy
+# konva-vue
 
 ## Project setup
 ```
