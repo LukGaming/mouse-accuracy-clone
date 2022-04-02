@@ -53,7 +53,7 @@ export default {
                     configCircle: {
                         x: this.setRandomRespawn(width),
                         y: this.setRandomRespawn(heigth),
-                        radius: 1,
+                        radius: 0,
                         fill: "red",
                         // stroke: "black",
                         strokeWidth: 4,
@@ -88,37 +88,35 @@ export default {
         },
         growCircle(index) {
             setTimeout(() => {
-                    this.circles[index].layer = this.$refs.circles[index].getNode()
-                    this.circles[index].configCircle.visible = true
-                    this.circles[index].configCircle.lessThanMaximumRadius = false
-                    this.circles[index].animation = new Konva.Animation(() => {
-                        // setInterval(() => {
-                        var radiusSpeed = 0.25
-                            if (this.circles[index].configCircle.lessThanMaximumRadius == false) {
-                                this.circles[index].configCircle.radius = this.circles[index].configCircle.radius + radiusSpeed
-                                if (this.circles[index].configCircle.radius >= 20) {
-                                    this.circles[index].configCircle.lessThanMaximumRadius = true
-                                }
-                            }
-                            if (this.circles[index].configCircle.lessThanMaximumRadius == true) {
-                                if (this.circles[index].configCircle.radius >= 1) {
-                                    this.circles[index].configCircle.radius = this.circles[index].configCircle.radius - radiusSpeed
-                                }
-                            }
-                            if (this.circles[index].configCircle.radius < 1) {
-                                // this.circles.splice(index, 1)
-                                this.stopAnimation(index);
-                                // this.circles[index].configCircle.lessThanMaximumRadius = true
-                                // this.circles[index].configCircle.radius = 2
-                            }
-                        
+                this.circles[index].layer = this.$refs.circles[index].getNode()
+                this.circles[index].configCircle.visible = true
+                this.circles[index].configCircle.lessThanMaximumRadius = false
+                this.circles[index].animation = new Konva.Animation(() => {
+                    // setInterval(() => {
+                    var radiusSpeed = 0.25
+                    if (this.circles[index].configCircle.lessThanMaximumRadius == false) {
+                        this.circles[index].configCircle.radius = this.circles[index].configCircle.radius + radiusSpeed
+                        if (this.circles[index].configCircle.radius >= 20) {
+                            this.circles[index].configCircle.lessThanMaximumRadius = true
+                        }
+                    }
+                    if (this.circles[index].configCircle.lessThanMaximumRadius == true) {
+                        if (this.circles[index].configCircle.radius >= 1) {
+                            this.circles[index].configCircle.radius = this.circles[index].configCircle.radius - radiusSpeed
+                        }
+                    }
+                    if (this.circles[index].configCircle.radius < 1) {
+                        // this.circles.splice(index, 1)
+                        this.stopAnimation(index);
+                        // this.circles[index].configCircle.lessThanMaximumRadius = true
+                        // this.circles[index].configCircle.radius = 2
+                    }
+                    // }, 1000);
 
-                        // }, 1000);
+                }, this.circles[index].layer)
+                this.circles[index].animation.start()
+                return Konva
 
-                    }, this.circles[index].layer)
-                    this.circles[index].animation.start()
-                    return Konva
-                
             }, 1000);
         }
     }
