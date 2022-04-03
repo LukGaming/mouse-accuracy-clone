@@ -1,6 +1,6 @@
-Jogo inspirado em Aimbooster.com e mouseaccuracy.com
-Feito em Vuejs!: https://vuejs.org/
-Usando a biblioteca Konva.js: https://konvajs.org/docs/vue/index.html
+Jogo inspirado em Aimbooster.com e mouseaccuracy.com<br>
+Feito em Vuejs!: https://vuejs.org/<br>
+Usando a biblioteca Konva.js: https://konvajs.org/docs/vue/index.html<br>
 
 
 
@@ -11,10 +11,11 @@ Usando a biblioteca Konva.js: https://konvajs.org/docs/vue/index.html
 ![image](https://user-images.githubusercontent.com/48625121/161442888-8e32d1c6-f4c9-4779-a2d5-2dc5cc79cddb.png)
 
 Foram Utilizados no vue:
-Vuetify
-Vuex
-Router
+Vuetify<br>
+Vuex<br>
+Router<br>
 
-Voce pode clonar este projeto e usar os comandos para iniciar:
- npm install
- npm run serve
+Voce pode clonar este projeto e usar os comandos para iniciar:<br>
+ npm install<br>
+ 
+ npm run serve<br>
