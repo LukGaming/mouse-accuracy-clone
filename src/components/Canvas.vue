@@ -32,7 +32,7 @@ export default {
                 fill: 'green',
             },
             circles: [],
-            simultaneousTargets: 10
+            // simultaneousTargets: 10
         };
     },
     created() {
@@ -108,7 +108,8 @@ export default {
         ...mapGetters({
             color: 'color',
             maximumRadius: 'maximumRadius',
-            speed: 'speed'
+            speed: 'speed',
+            simultaneousTargets: 'simultaneousTargets'
         })
     },
     watch: {
@@ -116,6 +117,29 @@ export default {
             for (let i = 0; i < this.circles.length; i++) {
                 this.circles[i].configCircle.fill = newValue
             }
+        },
+        simultaneousTargets(newValue, oldValue) { // watch it
+            if (newValue < oldValue) {
+                // var removeLayers = oldValue - newValue;
+                for (let i = newValue; i < oldValue; i++) {
+                    this.circles[i].layer.visible(false)
+                }
+            }
+            if (newValue > oldValue) {
+                for (let i = 0; i < this.simultaneousTargets; i++) {
+                    if (this.circles[i].layer) {
+                        this.circles[i].layer.visible(true)
+                    }
+
+                    // this.circles[i].layer.visible(true)
+                }
+                //     for (let i = 1; i < this.simultaneousTargets; i++) {
+                //         if (this.circles[i].layer.visible() == false) {
+                //             this.circles[i].layer.visible(true)
+                //         }
+                //     }
+            }
+            return newValue, oldValue
         }
     }
 

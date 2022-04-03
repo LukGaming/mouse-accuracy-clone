@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     color: 'red',
     maximumRadius: 20,
-    speed: 500
+    speed: 500,
+    simultaneousTargets: 5
   },
   getters: {
     color (state) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     speed (state) {
       return state.speed
+    },
+    simultaneousTargets (state) {
+      return state.simultaneousTargets
     }
   },
   mutations: {
@@ -29,6 +33,9 @@ export default new Vuex.Store({
     },
     changeSpeed (state, payload) {
       this.state.speed = payload
+    },
+    changeSimultaneousTargets (state, payload) {
+      this.state.simultaneousTargets = payload
     }
   },
   actions: {
@@ -40,6 +47,9 @@ export default new Vuex.Store({
     },
     changeSpeed (context, payload) {
       context.commit('changeSpeed', payload)
+    },
+    changeSimultaneousTargets (context, payload) {
+      context.commit('changeSimultaneousTargets', payload)
     }
   },
   modules: {}
