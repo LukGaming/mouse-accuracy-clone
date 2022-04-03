@@ -60,6 +60,7 @@ export default {
         save() {
             this.$store.dispatch('changeColor', this.color)
             this.$store.dispatch('changeMaximumRadius', this.maximunSizeSelected)
+            this.dialog2 = false
         }
 
     },
