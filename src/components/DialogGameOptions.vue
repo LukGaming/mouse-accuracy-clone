@@ -30,6 +30,17 @@
                     </v-text-field>
                 </v-card-actions>
                 <v-card-actions class="flex-row">
+                    <div class="card-title">Tempo de respawn:</div>
+                    <v-slider
+                        v-model="speed"
+                        color="orange"
+                        hint="Be honest"
+                        min="100"
+                        max="2000"
+                        thumb-label
+                    ></v-slider>
+                </v-card-actions>
+                <v-card-actions class="flex-row">
                     <div class="card-title">Tamanho Máximo do alvo:</div>
                     <v-select :items="maximumSize" v-model="maximunSizeSelected" label="Standard"></v-select>
                 </v-card-actions>
@@ -46,11 +57,12 @@
 export default {
     data() {
         return {
-            maximunSizeSelected: 10,
+            maximunSizeSelected: this.$store.getters.maximumRadius,
             dialog2: true,
-            color: 'red',
+            color: this.$store.getters.color,
             menu: false,
-            maximumSize: []
+            maximumSize: [],
+            speed: this.$store.getters.speed
         }
     },
     methods: {
@@ -60,6 +72,7 @@ export default {
         save() {
             this.$store.dispatch('changeColor', this.color)
             this.$store.dispatch('changeMaximumRadius', this.maximunSizeSelected)
+            this.$store.dispatch('changeSpeed', this.speed)
             this.dialog2 = false
         }
 
@@ -77,12 +90,12 @@ export default {
             }
         }
     },
-    created(){
-        for(let i=10; i<=30; i++){
+    created() {
+        for (let i = 10; i <= 30; i++) {
             this.maximumSize.push(i)
         }
     }
-    
+
 }
 </script>
 <style scoped>

@@ -5,15 +5,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    color: 'blue',
-    maximumRadius: 20
+    color: 'red',
+    maximumRadius: 20,
+    speed: 500
   },
   getters: {
     color (state) {
       return state.color
     },
-    maximumRadius(state){
+    maximumRadius (state) {
       return state.maximumRadius
+    },
+    speed (state) {
+      return state.speed
     }
   },
   mutations: {
@@ -22,6 +26,9 @@ export default new Vuex.Store({
     },
     changeMaximumRadius (state, payload) {
       this.state.maximumRadius = payload
+    },
+    changeSpeed (state, payload) {
+      this.state.speed = payload
     }
   },
   actions: {
@@ -30,6 +37,9 @@ export default new Vuex.Store({
     },
     changeMaximumRadius (context, payload) {
       context.commit('changeMaximumRadius', payload)
+    },
+    changeSpeed (context, payload) {
+      context.commit('changeSpeed', payload)
     }
   },
   modules: {}

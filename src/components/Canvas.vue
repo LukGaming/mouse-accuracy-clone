@@ -22,7 +22,6 @@ export default {
             configKonva: {
                 width: width,
                 height: heigth,
-                fill: 'red',
             },
             pontuacaoConfig: {
                 x: width - 300,
@@ -32,26 +31,15 @@ export default {
                 fontFamily: 'Calibri',
                 fill: 'green',
             },
-            // configCircle: {
-            //     x: 100,
-            //     y: 100,
-            //     radius: 70,
-            //     fill: "red",
-            //     // stroke: "black",
-            //     strokeWidth: 4
-            // }
             circles: [],
-
+            simultaneousTargets: 10
         };
     },
     created() {
-
-        console.log(this.color)
         this.pontuacaoConfig.text = `Pontuacao: ${this.pontuacao}`
         var i = 0;
-        var speed = 500;
         setInterval(() => {
-            if (i < 5) {
+            if (i < this.simultaneousTargets) {
                 this.circles.push({
                     id: i,
                     configCircle: {
@@ -68,8 +56,7 @@ export default {
                 i++;
             }
 
-        }, speed);
-
+        }, 100);
     },
     methods: {
         clickingCircle(index) {
@@ -81,15 +68,13 @@ export default {
             return Math.random() * parameter;
         },
         stopAnimation(index) {
-            // this.circles[index].animation.stop()
             this.circles[index].configCircle.visible = false
+            this.circles[index].configCircle.x = this.setRandomRespawn(width)
+            this.circles[index].configCircle.y = this.setRandomRespawn(heigth)
             setTimeout(() => {
                 this.circles[index].configCircle.lessThanMaximumRadius = false
                 this.circles[index].configCircle.visible = true
-            }, 1000);
-            // this.circles[index].layer.visible(false)
-            // this.circles[index].layer.setX(this.setRandomRespawn(width))
-            // this.circles[index].layer.setY(this.setRandomRespawn(heigth))
+            }, this.speed);
         },
         growCircle(index) {
             setTimeout(() => {
@@ -97,8 +82,7 @@ export default {
                 this.circles[index].configCircle.visible = true
                 this.circles[index].configCircle.lessThanMaximumRadius = false
                 this.circles[index].animation = new Konva.Animation(() => {
-                    // setInterval(() => {
-                    var radiusSpeed = 0.1
+                    var radiusSpeed = 0.2
                     if (this.circles[index].configCircle.lessThanMaximumRadius == false) {
                         this.circles[index].configCircle.radius = this.circles[index].configCircle.radius + radiusSpeed
                         if (this.circles[index].configCircle.radius >= this.maximumRadius) {
@@ -111,24 +95,20 @@ export default {
                         }
                     }
                     if (this.circles[index].configCircle.radius < 1) {
-                        // this.circles.splice(index, 1)
                         this.stopAnimation(index);
-                        // this.circles[index].configCircle.lessThanMaximumRadius = true
-                        // this.circles[index].configCircle.radius = 2
                     }
-                    // }, 1000);
 
                 }, this.circles[index].layer)
                 this.circles[index].animation.start()
                 return Konva
-
             }, 1000);
         }
     }
     , computed: {
         ...mapGetters({
             color: 'color',
-            maximumRadius: 'maximumRadius'
+            maximumRadius: 'maximumRadius',
+            speed: 'speed'
         })
     },
     watch: {
