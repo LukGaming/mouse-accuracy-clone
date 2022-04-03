@@ -130,7 +130,7 @@ export default {
                     if (this.circles[i].layer) {
                         this.circles[i].layer.visible(true)
                     }
-
+                    console.log(this.circles)
                     // this.circles[i].layer.visible(true)
                 }
                 //     for (let i = 1; i < this.simultaneousTargets; i++) {
