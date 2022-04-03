@@ -7,8 +7,8 @@
             <v-card dark>
                 <v-card-title>Opções de jogabilidade</v-card-title>
                 <v-card-actions class="flex-row">
-                    <v-card-title>Cor do alvo:</v-card-title>
-                    <v-text-field v-model="color" v-mask="mask" hide-details class="ma-0 pa-0" solo>
+                    <div class="card-title">Cor do alvo:</div>
+                    <v-text-field v-model="color" hide-details class="ma-0 pa-0" solo>
                         <template v-slot:append>
                             <v-menu
                                 v-model="menu"
@@ -29,6 +29,10 @@
                         </template>
                     </v-text-field>
                 </v-card-actions>
+                <v-card-actions class="flex-row">
+                    <div class="card-title">Tamanho Máximo do alvo:</div>
+                    <v-select :items="maximumSize" v-model="maximunSizeSelected" label="Standard"></v-select>
+                </v-card-actions>
 
                 <v-card-actions class="flex-row justify-space-around">
                     <v-btn color="primary" class="ma-2" dark @click="save">Salvar</v-btn>
@@ -42,10 +46,11 @@
 export default {
     data() {
         return {
+            maximunSizeSelected: 10,
             dialog2: true,
-            color: '#1976D2FF',
-            mask: '!#XXXXXXXX',
-            menu: false
+            color: 'red',
+            menu: false,
+            maximumSize: []
         }
     },
     methods: {
@@ -53,7 +58,8 @@ export default {
 
         },
         save() {
-
+            this.$store.dispatch('changeColor', this.color)
+            this.$store.dispatch('changeMaximumRadius', this.maximunSizeSelected)
         }
 
     },
@@ -69,7 +75,13 @@ export default {
                 transition: 'border-radius 200ms ease-in-out'
             }
         }
+    },
+    created(){
+        for(let i=10; i<=30; i++){
+            this.maximumSize.push(i)
+        }
     }
+    
 }
 </script>
 <style scoped>
@@ -79,5 +91,9 @@ export default {
     top: 0;
     right: 0;
     z-index: 2;
+}
+.card-title {
+    margin-right: 10px;
+    font-size: 1.1rem;
 }
 </style>

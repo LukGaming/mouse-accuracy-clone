@@ -14,6 +14,7 @@
 import Konva from 'konva'
 const width = window.innerWidth;
 const heigth = window.innerHeight
+import { mapGetters } from 'vuex'
 export default {
     data() {
         return {
@@ -44,6 +45,8 @@ export default {
         };
     },
     created() {
+
+        console.log(this.color)
         this.pontuacaoConfig.text = `Pontuacao: ${this.pontuacao}`
         var i = 0;
         var speed = 500;
@@ -55,7 +58,7 @@ export default {
                         x: this.setRandomRespawn(width),
                         y: this.setRandomRespawn(heigth),
                         radius: 0,
-                        fill: "red",
+                        fill: this.$store.getters.color,
                         // stroke: "black",
                         strokeWidth: 4,
                         visible: false
@@ -98,7 +101,7 @@ export default {
                     var radiusSpeed = 0.1
                     if (this.circles[index].configCircle.lessThanMaximumRadius == false) {
                         this.circles[index].configCircle.radius = this.circles[index].configCircle.radius + radiusSpeed
-                        if (this.circles[index].configCircle.radius >= 20) {
+                        if (this.circles[index].configCircle.radius >= this.maximumRadius) {
                             this.circles[index].configCircle.lessThanMaximumRadius = true
                         }
                     }
@@ -120,6 +123,19 @@ export default {
                 return Konva
 
             }, 1000);
+        }
+    }
+    , computed: {
+        ...mapGetters({
+            color: 'color',
+            maximumRadius: 'maximumRadius'
+        })
+    },
+    watch: {
+        color(newValue) { // watch it
+            for (let i = 0; i < this.circles.length; i++) {
+                this.circles[i].configCircle.fill = newValue
+            }
         }
     }
 
